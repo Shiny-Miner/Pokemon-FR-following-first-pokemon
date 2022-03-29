@@ -3,9 +3,16 @@
  * ::ACIMUT::
  * 2022-03-29
  * 
- * Hay que acomodar los nuevos comandos de script.
- * Actualizar los pointer de los nuevos comandos.
+ * Port del follow me hecho por Ghoulslash en pokeemerald:
+ * https://github.com/ghoulslash/pokeemerald/tree/follow_me
  * 
+ * Tasklist
+ * 
+ * -Comparar con pokefirered las funciones.
+ * -Hacer hooks a las funciones.
+ * -Hay que acomodar los nuevos comandos de script.
+ * -Actualizar los pointer de los nuevos comandos.
+ * -Agregar nuevos comandos field_move_scripts 
 */
 
 
@@ -35,6 +42,11 @@
     .endm
 */
 
+
+
+
+
+
 //data/script_cmd_table.inc
 /*
     .4byte ScrCmd_setfollower					@ 0xe3
@@ -42,6 +54,12 @@
     .4byte ScrCmd_facefollower				@ 0xe5
     .4byte ScrCmd_checkfollower				@ 0xe6
 */
+
+
+
+
+
+
 
 //data/scripts/field_move_scripts.inc
 /*
