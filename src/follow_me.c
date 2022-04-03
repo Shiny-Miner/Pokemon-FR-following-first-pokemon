@@ -25,6 +25,7 @@
 #include "constants/map_types.h"
 #include "constants/field_effects.h"
 #include "constants/metatile_behaviors.h"
+#include "event_object_lock.h"
 /*
     -FollowMe_StairsMoveHook ?
     -FollowMe_WarpStairsEndHook ?
@@ -797,7 +798,7 @@ void Task_DoDoorWarp(u8 taskId)
         }
         break;
     case 2:
-        if (IsPlayerStandingStill())
+        if (walkrun_is_standing_still())
         {
             if (!gSaveBlock2Ptr->follower.inProgress || gObjectEvents[followerObjId].invisible) //Don't close door on follower
                 task->data[1] = FieldAnimateDoorClose(*x, *y - 1);

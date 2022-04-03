@@ -81,7 +81,7 @@ static void Task_ExitDoor(u8 taskId)
         }
         break;
     case 2:
-        if (IsPlayerStandingStill())
+        if (walkrun_is_standing_still())
         {
             u8 objEventId;
             task->data[1] = FieldAnimateDoorClose(*x, *y);
@@ -132,7 +132,7 @@ static void Task_ExitNonAnimDoor(u8 taskId)
         }
         break;
     case 2:
-        if (IsPlayerStandingStill())
+        if (walkrun_is_standing_still())
         {
             FollowMe_SetIndicatorToComeOutDoor();
             FollowMe_WarpSetEnd();

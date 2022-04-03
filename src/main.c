@@ -13,6 +13,9 @@
  * -Hay que acomodar los nuevos comandos de script.
  * -Actualizar los pointer de los nuevos comandos.
  * -Agregar nuevos comandos field_move_scripts 
+ * 
+ * COMPARAR:
+ * Archivos:
 */
 
 
