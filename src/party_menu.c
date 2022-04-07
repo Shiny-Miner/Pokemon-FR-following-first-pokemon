@@ -88,18 +88,31 @@
 
 
 extern void FieldCallback_Surf(void);
-//static void FieldCallback_Surf(void)
-//{
-//    gFieldEffectArguments[0] = GetCursorSelectionMonId();
-//    FieldEffectStart(FLDEFF_USE_SURF);
-//}
+extern void FieldCallback_Waterfall(void);
 
-static bool8 SetUpFieldMove_Surf(void)
+/**
+ * ::ACIMUT::
+ * 2022/04/06
+ * 
+ * - Cambio de función correspondiente a fire red.
+ * - No es llamada en otra parte de la inyección.
+ * - Cambiar puntero de esta función, declarada 
+ *      en party_menu.h en la siguiente tabla:
+ *      const sFieldMoveCursorCallbacks[]
+ */
+
+//static 
+bool8 SetUpFieldMove_Surf(void)
 {
+    s16 x, y;
+
     if (!CheckFollowerFlag(FOLLOWER_FLAG_CAN_SURF))
         return FALSE;
 
-    if (PartyHasMonWithSurf() == TRUE && IsPlayerFacingSurfableFishableWater() == TRUE)
+    GetXYCoordsOneStepInFrontOfPlayer(&x, &y);
+    if (MetatileBehavior_IsSemiDeepWater(MapGridGetMetatileBehaviorAt(x, y)) != TRUE
+     && PartyHasMonWithSurf() == TRUE
+     && IsPlayerFacingSurfableFishableWater() == TRUE)
     {
         gFieldCallback2 = FieldCallback_PrepareFadeInFromMenu;
         gPostMenuFieldCallback = FieldCallback_Surf;
@@ -109,7 +122,8 @@ static bool8 SetUpFieldMove_Surf(void)
 }
 
 
-static bool8 SetUpFieldMove_Fly(void)
+//static 
+bool8 SetUpFieldMove_Fly(void)
 {
     if (!CheckFollowerFlag(FOLLOWER_FLAG_CAN_LEAVE_ROUTE))
         return FALSE;
@@ -120,14 +134,8 @@ static bool8 SetUpFieldMove_Fly(void)
         return FALSE;
 }
 
-extern void FieldCallback_Waterfall(void);
-//static void FieldCallback_Waterfall(void)
-//{
-//    gFieldEffectArguments[0] = GetCursorSelectionMonId();
-//    FieldEffectStart(FLDEFF_USE_WATERFALL);
-//}
-
-static bool8 SetUpFieldMove_Waterfall(void)
+//static 
+bool8 SetUpFieldMove_Waterfall(void)
 {
     s16 x, y;
 
@@ -144,6 +152,7 @@ static bool8 SetUpFieldMove_Waterfall(void)
     return FALSE;
 }
 
+/*          //no está en Fire Red.
 extern void FieldCallback_Dive(void);
 //static void FieldCallback_Dive(void)
 //{
@@ -166,7 +175,7 @@ static bool8 SetUpFieldMove_Dive(void)
     }
     return FALSE;
 }
-
+*/
 
 
 
