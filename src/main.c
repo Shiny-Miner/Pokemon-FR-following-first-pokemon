@@ -5,6 +5,19 @@
 //  --------------------    hooks   ---------------------
 // Prototipos de hooks. Pasar luego a ensamblador.
 
+
+
+
+//  -----   fldeff_teleport.c    -----
+extern bool8 SetUpFieldMove_Teleport(void);
+
+//080f66f0 g 00000040 SetUpFieldMove_Teleport
+bool8 SetUpFieldMove_Teleport_hook(void)
+{
+    return SetUpFieldMove_Teleport();
+}
+
+
 //  -----   item_use.c    -----
 extern void ItemUseOutOfBattle_Bike(u8 taskId);
 extern bool8 CanUseDigOrEscapeRopeOnCurMap(void);
@@ -80,13 +93,13 @@ void InitObjectEventsLocal_hook(void)
  * -Agregar nuevos comandos field_move_scripts 
  * 
  * COMPARAR:
- * Archivo                        FR        LD
+ * Archivo                      FR      LD
  * ------------------------------------------
- * srccmd.c                       ok
- * overworld.c                    ok
- * party_menu.c                   ok
- * item_use.c                     ok
- * fldeff_teleport.c
+ * srccmd.c                     ok
+ * overworld.c                  ok
+ * party_menu.c                 ok
+ * item_use.c                   ok
+ * fldeff_teleport.c            ok
  * field_screen_effect.c
  * field_player_avatar.c
  * field_effect.c
