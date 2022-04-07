@@ -1,4 +1,69 @@
 
+#include "global.h"
+
+
+//  --------------------    hooks   ---------------------
+// Prototipos de hooks. Pasar luego a ensamblador.
+
+//  -----   item_use.c    -----
+extern void ItemUseOutOfBattle_Bike(u8 taskId);
+extern bool8 CanUseDigOrEscapeRopeOnCurMap(void);
+
+//080a122c g 000000d8 FieldUseFunc_MachBike
+void ItemUseOutOfBattle_Bike_hook(u8 taskId)
+{
+    ItemUseOutOfBattle_Bike(taskId);
+}
+
+//080a1b8c g 0000001e CanUseEscapeRopeOnCurrMap
+bool8 CanUseDigOrEscapeRopeOnCurMap_hook(void)
+{
+    return CanUseDigOrEscapeRopeOnCurMap();
+}
+
+
+//  -----   party_menu.c    -----
+//Para estas estas weas cambiar los punteros de la tabla:
+//  const sFieldMoveCursorCallbacks[]
+
+//08124998 l 00000072 SetUpFieldMove_Surf
+//08124a8c l 00000022 SetUpFieldMove_Fly
+//08124af8 l 00000066 SetUpFieldMove_Waterfall
+
+
+//  -----   overworld.c    -----
+extern void Overworld_ResetStateAfterWhitingOut(void);
+extern void DoCB1_Overworld(u16 newKeys, u16 heldKeys);
+extern bool32 ReturnToFieldLocal(u8 *state);
+extern void InitObjectEventsLocal(void);
+
+
+//08054dd8 l 00000068 Overworld_ResetStateAfterWhitingOut
+void Overworld_ResetStateAfterWhitingOut_hook(void)
+{
+    Overworld_ResetStateAfterWhitingOut();
+}
+
+//0805644c l 0000007a DoCB1_Overworld
+void DoCB1_Overworld_hook(u16 newKeys, u16 heldKeys)
+{
+    DoCB1_Overworld(newKeys, heldKeys);
+}
+
+//08056cd8 l 0000006c sub_8056CD8
+bool32 ReturnToFieldLocal_hook(u8 *state)
+{
+    return ReturnToFieldLocal(state);
+}
+
+//0805709c l 00000064 mli4_mapscripts_and_other
+void InitObjectEventsLocal_hook(void)
+{
+    InitObjectEventsLocal();
+}
+
+//  --------------------    hooks   ---------------------
+
 /**
  * ::ACIMUT::
  * 2022-03-29
@@ -15,7 +80,21 @@
  * -Agregar nuevos comandos field_move_scripts 
  * 
  * COMPARAR:
- * Archivos:
+ * Archivo                        FR        LD
+ * ------------------------------------------
+ * srccmd.c                       ok
+ * overworld.c                    ok
+ * party_menu.c                   ok
+ * item_use.c                     ok
+ * fldeff_teleport.c
+ * field_screen_effect.c
+ * field_player_avatar.c
+ * field_effect.c
+ * field_control_avatar.c
+ * event_object_movement.c
+ * follow_me.c
+ * battle_main.c
+ * new_game.c
 */
 
 
@@ -52,10 +131,10 @@
 
 //data/script_cmd_table.inc
 /*
-    .4byte ScrCmd_setfollower					@ 0xe3
-    .4byte ScrCmd_destroyfollower			@ 0xe4
-    .4byte ScrCmd_facefollower				@ 0xe5
-    .4byte ScrCmd_checkfollower				@ 0xe6
+	.4byte ScrCmd_setfollower               @ 0xe3
+	.4byte ScrCmd_destroyfollower           @ 0xe4
+	.4byte ScrCmd_facefollower              @ 0xe5
+	.4byte ScrCmd_checkfollower             @ 0xe6
 */
 
 

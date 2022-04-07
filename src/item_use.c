@@ -45,18 +45,6 @@
 #include "quest_log.h"
 
 
-/**
- * ::ACIMUT::
- * 2022/04/06
- * 
- * - Esta función en FR se conoce como:
- *      void FieldUseFunc_MachBike(u8 taskId)
- * - Cambio de función correspondiente a fire red.
- * - No es llamada en otra parte de la inyección.
- * - Es posible hacer hook a toda esta función.
- * - Usado en items.
- */
-
 //static EWRAM_DATA 
 extern void (*sItemUseOnFieldCB)(u8 taskId);// = NULL;
 
@@ -69,6 +57,18 @@ extern void PrintNotTheTimeToUseThat(u8 taskId, bool8 inField);
 static void ItemUseOnFieldCB_Bike(u8 taskId);
 
 #define tUsingRegisteredKeyItem  data[3]
+
+/**
+ * ::ACIMUT::
+ * 2022/04/06
+ * 
+ * - Esta función en FR se conoce como:
+ *      void FieldUseFunc_MachBike(u8 taskId)
+ * - Cambio de función correspondiente a fire red.
+ * - No es llamada en otra parte de la inyección.
+ * - Es posible hacer hook a toda esta función.
+ * - Usado en items.
+ */
 
 void ItemUseOutOfBattle_Bike(u8 taskId)
 {

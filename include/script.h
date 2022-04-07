@@ -80,8 +80,6 @@ bool8 IsMsgBoxWalkawayDisabled(void);
 extern const u8 *gRAMScriptPtr;
 extern u8 gWalkAwayFromSignInhibitTimer;
 
-// NEW
-u8* ReadWord(u8 index);
 
 
 #endif // GUARD_SCRIPT_H
