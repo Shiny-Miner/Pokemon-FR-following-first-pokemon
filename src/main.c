@@ -8,25 +8,59 @@
 
 
 
+//  --------------------------------------
+//  -----   field_screen_effect.c    -----
+//  --------------------------------------
+
+extern void FieldCB_DefaultWarpExit(void);
+
+////0807df64 g 00000018 FieldCB_DefaultWarpExit
+void FieldCB_DefaultWarpExit_hook(void)
+{
+    FieldCB_DefaultWarpExit();
+}
+
+//0807dfbc l 00000250 sub_807DFBC
+//BD DF 07 08   puntero hallado en: 0x0807DED8
+//función a llamar:
+//void Task_ExitDoor(u8 taskId)
+
+//0807e20c l 000000c0 task_map_chg_seq_0807E20C
+//0D E2 07 08   puntero hallado en: 0x0807DF00
+//función a llamar:
+//void Task_ExitNonAnimDoor(u8 taskId)
+
+//0807e31c l 0000005c Task_TeleportWarpIn
+//1D E3 07 08   puntero hallado en: 0x0807DFB8
+//función a llamar:
+//void Task_SpinEnterWarp(u8 taskId)
+
+
+//  ----------------------------------
 //  -----   fldeff_teleport.c    -----
-extern bool8 SetUpFieldMove_Teleport(void);
+//  ----------------------------------
+
+//Para esta wea también cambiar el punteros de la tabla:
+//  const sFieldMoveCursorCallbacks[]
 
 //080f66f0 g 00000040 SetUpFieldMove_Teleport
-bool8 SetUpFieldMove_Teleport_hook(void)
-{
-    return SetUpFieldMove_Teleport();
-}
+//f1 66 0f 08   puntero hallado en: 0x0845A7C0
 
 
+//  ---------------------------
 //  -----   item_use.c    -----
-extern void ItemUseOutOfBattle_Bike(u8 taskId);
-extern bool8 CanUseDigOrEscapeRopeOnCurMap(void);
+//  ---------------------------
 
+//cambiar los punteros de los items
 //080a122c g 000000d8 FieldUseFunc_MachBike
-void ItemUseOutOfBattle_Bike_hook(u8 taskId)
-{
-    ItemUseOutOfBattle_Bike(taskId);
-}
+//2d 12 0a 08   puntero hallado en: 
+//0x083DDCC8
+//0x083DDF04
+//0x083DEE24
+//función a llamar:
+//void ItemUseOutOfBattle_Bike(u8 taskId)
+
+extern bool8 CanUseDigOrEscapeRopeOnCurMap(void);
 
 //080a1b8c g 0000001e CanUseEscapeRopeOnCurrMap
 bool8 CanUseDigOrEscapeRopeOnCurMap_hook(void)
@@ -35,16 +69,27 @@ bool8 CanUseDigOrEscapeRopeOnCurMap_hook(void)
 }
 
 
+//  -----------------------------
 //  -----   party_menu.c    -----
-//Para estas estas weas cambiar los punteros de la tabla:
+//  -----------------------------
+
+//Para estas weas cambiar los punteros de la tabla:
 //  const sFieldMoveCursorCallbacks[]
 
 //08124998 l 00000072 SetUpFieldMove_Surf
+//99 49 12 08   puntero hallado en: 0x0845A7A8
+
 //08124a8c l 00000022 SetUpFieldMove_Fly
+//8d 4a 12 08   puntero hallado en: 0x0845A798
+
 //08124af8 l 00000066 SetUpFieldMove_Waterfall
+//f9 4a 12 08   puntero hallado en: 0x0845A7B8
 
 
+//  ----------------------------
 //  -----   overworld.c    -----
+//  ----------------------------
+
 extern void Overworld_ResetStateAfterWhitingOut(void);
 extern void DoCB1_Overworld(u16 newKeys, u16 heldKeys);
 extern bool32 ReturnToFieldLocal(u8 *state);
@@ -75,7 +120,7 @@ void InitObjectEventsLocal_hook(void)
     InitObjectEventsLocal();
 }
 
-//  --------------------    hooks   ---------------------
+//  --------------------    hooks end   --------------------
 
 /**
  * ::ACIMUT::
@@ -92,15 +137,15 @@ void InitObjectEventsLocal_hook(void)
  * -Actualizar los pointer de los nuevos comandos.
  * -Agregar nuevos comandos field_move_scripts 
  * 
- * COMPARAR:
- * Archivo                      FR      LD
- * ------------------------------------------
+ * 
+ * ARCHIVO:                     FR:     LD:    HOOK:
+ * --------------------------------------------------
  * srccmd.c                     ok
- * overworld.c                  ok
- * party_menu.c                 ok
- * item_use.c                   ok
- * fldeff_teleport.c            ok
- * field_screen_effect.c
+ * overworld.c                  ok              -
+ * party_menu.c                 ok              -
+ * item_use.c                   ok              -
+ * fldeff_teleport.c            ok              -
+ * field_screen_effect.c        ok              -
  * field_player_avatar.c
  * field_effect.c
  * field_control_avatar.c

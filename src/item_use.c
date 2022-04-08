@@ -66,7 +66,7 @@ static void ItemUseOnFieldCB_Bike(u8 taskId);
  *      void FieldUseFunc_MachBike(u8 taskId)
  * - Cambio de función correspondiente a fire red.
  * - No es llamada en otra parte de la inyección.
- * - Es posible hacer hook a toda esta función.
+ * - Cambiar punteros de los items (3).
  * - Usado en items.
  */
 
@@ -124,7 +124,7 @@ static void ItemUseOnFieldCB_Bike(u8 taskId)
  *      bool8 CanUseEscapeRopeOnCurrMap(void)
  * - Cambio de función correspondiente a fire red.
  * - Es llamada en otra parte de la inyección.
- * - Es posible hacer hook a toda esta función.
+ * - Hacer hook a toda esta función.
  */
 
 bool8 CanUseDigOrEscapeRopeOnCurMap(void)
