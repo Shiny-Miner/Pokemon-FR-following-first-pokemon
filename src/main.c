@@ -9,6 +9,17 @@
 
 
 //  --------------------------------------
+//  -----   field_effect.c    -----
+//  --------------------------------------
+
+//08084708 l 0000007c FallWarpEffect_7
+//09 47 08 08   puntero hallado en: 0x0
+//función a llamar:
+//bool8 FallWarpEffect_End(struct Task *task)
+
+
+
+//  --------------------------------------
 //  -----   field_player_avatar.c    -----
 //  --------------------------------------
 

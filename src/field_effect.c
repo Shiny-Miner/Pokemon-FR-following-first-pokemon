@@ -32,18 +32,44 @@
 #include "constants/metatile_behaviors.h"
 //#include "constants/rgb.h"
 #include "constants/songs.h"
+#include "help_system.h"
+#include "constants/help_system.h"
+#include "event_data.h"
 
 
-//          más hooks
 
 
-static bool8 FallWarpEffect_End(struct Task *task)
+//static 
+extern void Task_FallWarpFieldEffect(u8 taskId);
+
+/**
+ * ::ACIMUT::
+ * 2022/04/14
+ * - Esta función en FR se conoce como:
+ *      static bool8 FallWarpEffect_7(struct Task * task)
+ * - Cambio de función correspondiente a fire red.
+ * - No es llamada en otra parte de la inyección.
+ * - Función llamada a través de una tabla:
+ * - Sólo hay que cambiar el puntero.
+ */
+
+
+bool8 FallWarpEffect_End(struct Task *task)
 {
+    s16 x, y;
     gPlayerAvatar.preventStep = FALSE;
     ScriptContext2_Disable();
     CameraObjectReset1();
     UnfreezeObjectEvents();
     InstallCameraPanAheadCallback();
+    PlayerGetDestCoords(&x, &y);
+    // Seafoam Islands
+    if (sub_8055B38(MapGridGetMetatileBehaviorAt(x, y)) == TRUE)
+    {
+        VarSet(VAR_TEMP_1, 1);
+        SetPlayerAvatarTransitionFlags(PLAYER_AVATAR_FLAG_SURFING);
+        SetHelpContext(HELPCONTEXT_SURFING);
+    }
     DestroyTask(FindTaskIdByFunc(Task_FallWarpFieldEffect));
 
     FollowMe_WarpSetEnd();
