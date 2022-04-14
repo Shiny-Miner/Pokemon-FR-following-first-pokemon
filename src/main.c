@@ -183,7 +183,7 @@ void InitObjectEventsLocal_hook(void)
  * fldeff_teleport.c            ok              -
  * field_screen_effect.c        ok              -
  * field_player_avatar.c        ok              -
- * field_effect.c
+ * field_effect.c               ok              ok
  * field_control_avatar.c
  * event_object_movement.c
  * follow_me.c
