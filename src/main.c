@@ -12,8 +12,13 @@
 //  -----   field_control_avatar.c    -----
 //  ---------------------------------------
 
+extern const u8 *GetInteractedObjectEventScript(struct MapPosition *position, u8 metatileBehavior, u8 direction);
 
-
+//0806cff4 l 000000f0 GetInteractedObjectEventScript
+const u8 *GetInteractedObjectEventScript(struct MapPosition *position, u8 metatileBehavior, u8 direction)
+{
+    return GetInteractedObjectEventScript(position, metatileBehavior, direction);
+}
 
 
 
