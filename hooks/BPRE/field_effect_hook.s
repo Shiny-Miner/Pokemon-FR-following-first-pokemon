@@ -25,6 +25,7 @@
 //b5 6a 08 08   puntero hallado en: 0x083CC160
 //función a llamar:
 //static void SurfFieldEffect_JumpOnSurfBlob(struct Task *task)
+
 .org 0x083CC160
    .word SurfFieldEffect_JumpOnSurfBlob|1
 
