@@ -9,6 +9,22 @@
 
 
 //  --------------------------------------
+//  -----   field_player_avatar.c    -----
+//  --------------------------------------
+
+//0805b9d4 l 000000d6 PlayerNotOnBikeMoving
+//d5 b9 05 08   puntero hallado en: 0x0835B81C
+
+extern void CreateStopSurfingTask(u8 direction);
+
+//0805d0f8 l 0000005c CreateStopSurfingTask
+void CreateStopSurfingTask_hook(u8 direction)
+{
+    CreateStopSurfingTask(direction);
+}
+
+
+//  --------------------------------------
 //  -----   field_screen_effect.c    -----
 //  --------------------------------------
 
@@ -146,7 +162,7 @@ void InitObjectEventsLocal_hook(void)
  * item_use.c                   ok              -
  * fldeff_teleport.c            ok              -
  * field_screen_effect.c        ok              -
- * field_player_avatar.c
+ * field_player_avatar.c        ok              -
  * field_effect.c
  * field_control_avatar.c
  * event_object_movement.c

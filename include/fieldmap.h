@@ -12,6 +12,8 @@
 #define MAX_MAP_DATA_SIZE 0x2800
 #define VIRTUAL_MAP_SIZE (MAX_MAP_DATA_SIZE)
 
+#define MAP_OFFSET 7
+
 extern struct BackupMapLayout VMap;
 extern const struct MapLayout Route1_Layout;
 

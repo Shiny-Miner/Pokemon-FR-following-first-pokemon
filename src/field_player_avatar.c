@@ -33,53 +33,83 @@
 #define NUM_FORCED_MOVEMENTS 18
 #define NUM_ACRO_BIKE_COLLISIONS 5
 
-//          más hooks
+
+//static 
+extern u8 CheckForPlayerAvatarCollision(u8 direction);
+extern void Task_StopSurfingInit(u8 taskId);
+
+/**
+ * ::ACIMUT::
+ * 2022/04/14
+ * 
+ * - Cambio de función correspondiente a fire red.
+ * - No es llamada en otra parte de la inyección.
+ * - Función llamada a través de una tabla:
+ * - Sólo hay que cambiar el puntero.
+ */
 
 
-static void PlayerNotOnBikeMoving(u8 direction, u16 heldKeys)
+void PlayerNotOnBikeMoving(u8 direction, u16 heldKeys)
 {
     u8 collision = CheckForPlayerAvatarCollision(direction);
+
     if (collision)
     {
         if (collision == COLLISION_LEDGE_JUMP)
         {
             PlayerJumpLedge(direction);
-            return;
         }
-        else if (collision == COLLISION_OBJECT_EVENT && IsPlayerCollidingWithFarawayIslandMew(direction))
+        else if (collision == COLLISION_DIRECTIONAL_STAIR_WARP)
         {
-            PlayerNotOnBikeCollideWithFarawayIslandMew(direction);
-            return;
+            PlayerFaceDirection(direction);
         }
-        else
+        else if (collision != COLLISION_STOP_SURFING
+              && collision != COLLISION_LEDGE_JUMP
+              && collision != COLLISION_PUSHED_BOULDER
+              && collision != COLLISION_DIRECTIONAL_STAIR_WARP)
         {
-            u8 adjustedCollision = collision - COLLISION_STOP_SURFING;
-            if (adjustedCollision > 3)
-                PlayerNotOnBikeCollide(direction);
-            return;
+            PlayerNotOnBikeCollide(direction);
         }
+        return;
     }
     if (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_SURFING)
     {
         // same speed as running
-        PlayerWalkFast(direction);
+        PlayerGoSpeed2(direction);
         return;
     }
 
-    if (!(gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_UNDERWATER) && (heldKeys & B_BUTTON) && FlagGet(FLAG_SYS_B_DASH)
-     //&& IsRunningDisallowed(gObjectEvents[gPlayerAvatar.objectEventId].currentMetatileBehavior) == 0)
-     && IsRunningDisallowed(gObjectEvents[gPlayerAvatar.objectEventId].currentMetatileBehavior) == 0 && !FollowerComingThroughDoor())
+    //if (!(gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_UNDERWATER) && (heldKeys & B_BUTTON) && FlagGet(FLAG_SYS_B_DASH)
+     //&& IsRunningDisallowed(gObjectEvents[gPlayerAvatar.objectEventId].currentMetatileBehavior) == 0 && !FollowerComingThroughDoor())
+    if ((heldKeys & B_BUTTON) && FlagGet(FLAG_SYS_B_DASH)
+        && !IsRunningDisallowed(gObjectEvents[gPlayerAvatar.objectEventId].currentMetatileBehavior)
+        && !FollowerComingThroughDoor())
     {
-        PlayerRun(direction);
+        if (PlayerIsMovingOnRockStairs(direction))
+            PlayerRunSlow(direction);
+        else
+            PlayerRun(direction);
         gPlayerAvatar.flags |= PLAYER_AVATAR_FLAG_DASH;
         return;
     }
     else
     {
-        PlayerWalkNormal(direction);
+        if (PlayerIsMovingOnRockStairs(direction))
+            PlayerGoSlow(direction);
+        else
+            PlayerGoSpeed1(direction);
     }
 }
 
+/**
+ * ::ACIMUT::
+ * 2022/04/14
+ * 
+ * - Es llamada en otra parte de la inyección en:
+ *      overworld.c
+ *      void InitObjectEventsLocal(void)
+ * - No es necesario repuntear.
+ */
 
 void InitPlayerAvatar(s16 x, s16 y, u8 direction, u8 gender)
 {
@@ -109,20 +139,28 @@ void InitPlayerAvatar(s16 x, s16 y, u8 direction, u8 gender)
     gPlayerAvatar.objectEventId = objectEventId;
     gPlayerAvatar.spriteId = objectEvent->spriteId;
     gPlayerAvatar.gender = gender;
-    //SetPlayerAvatarStateMask(PLAYER_AVATAR_FLAG_CONTROLLABLE | PLAYER_AVATAR_FLAG_ON_FOOT);
     SetPlayerAvatarStateMask(PLAYER_AVATAR_FLAG_CONTROLLABLE | PLAYER_AVATAR_FLAG_ON_FOOT);    
     CreateFollowerAvatar();
 }
 
+/**
+ * ::ACIMUT::
+ * 2022/04/14
+ * 
+ * - Cambio de función correspondiente a fire red.
+ * - No es llamada en otra parte de la inyección.
+ * - Hacer hook a toda la función.
+ */
 
-static void CreateStopSurfingTask(u8 direction)
+void CreateStopSurfingTask(u8 direction)
 {
     u8 taskId;
+
     ScriptContext2_Enable();
+    FreezeObjectEvents();
     Overworld_ClearSavedMusic();
     Overworld_ChangeMusicToDefault();
     gPlayerAvatar.flags &= ~PLAYER_AVATAR_FLAG_SURFING;
-    gPlayerAvatar.flags ^= PLAYER_AVATAR_FLAG_SURFING;
     gPlayerAvatar.flags |= PLAYER_AVATAR_FLAG_ON_FOOT;
     gPlayerAvatar.preventStep = TRUE;
     taskId = CreateTask(Task_StopSurfingInit, 0xFF);
