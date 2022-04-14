@@ -22,6 +22,11 @@
 //función a llamar:
 //bool8 EscalatorWarpOut_WaitForPlayer(struct Task *task)
 
+//08086ab4 l 0000007c UseSurfEffect_4
+//b5 ab 08 08   puntero hallado en: 0x08
+//función a llamar:
+//static void SurfFieldEffect_JumpOnSurfBlob(struct Task *task)
+
 
 //  --------------------------------------
 //  -----   field_player_avatar.c    -----

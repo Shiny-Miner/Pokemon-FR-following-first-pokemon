@@ -119,13 +119,24 @@ bool8 EscalatorWarpOut_WaitForPlayer(struct Task *task)
 #define tDestY data[2]
 #define tMonId data[15]
 
+/**
+ * ::ACIMUT::
+ * 2022/04/14
+ * - Esta función en FR se conoce como:
+ *      static void UseSurfEffect_4(struct Task * task)
+ * - Cambio de función correspondiente a fire red.
+ * - No es llamada en otra parte de la inyección.
+ * - Función llamada a través de una tabla:
+ * - Sólo hay que cambiar el puntero.
+ */
+
 static void SurfFieldEffect_JumpOnSurfBlob(struct Task *task)
 {
     struct ObjectEvent *objectEvent;
     if (!FieldEffectActiveListContains(FLDEFF_FIELD_MOVE_SHOW_MON))
     {
         objectEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
-        ObjectEventSetGraphicsId(objectEvent, GetPlayerAvatarGraphicsIdByStateId(PLAYER_AVATAR_STATE_SURFING));
+        ObjectEventSetGraphicsId(objectEvent, GetPlayerAvatarGraphicsIdByStateId(PLAYER_AVATAR_GFX_RIDE));
         ObjectEventClearHeldMovementIfFinished(objectEvent);
         ObjectEventSetHeldMovement(objectEvent, GetJumpSpecialMovementAction(objectEvent->movementDirection));
 
