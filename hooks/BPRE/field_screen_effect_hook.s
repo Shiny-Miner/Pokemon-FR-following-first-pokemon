@@ -8,7 +8,8 @@
 //función a llamar:
 //void Task_ExitDoor(u8 taskId)
 
-
+.org 0x0807DED8
+    .word Task_ExitDoor|1
 
 
 
@@ -17,7 +18,8 @@
 //función a llamar:
 //void Task_ExitNonAnimDoor(u8 taskId)
 
-
+.org 0x0807DF00
+    .word Task_ExitNonAnimDoor|1
 
 
 
@@ -27,7 +29,8 @@
 //función a llamar:
 //void Task_SpinEnterWarp(u8 taskId)
 
-
+.org 0x0807DFB8
+    .word Task_SpinEnterWarp|1
 
 
 
