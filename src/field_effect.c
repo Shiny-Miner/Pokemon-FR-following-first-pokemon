@@ -130,7 +130,7 @@ bool8 EscalatorWarpOut_WaitForPlayer(struct Task *task)
  * - Sólo hay que cambiar el puntero.
  */
 
-static void SurfFieldEffect_JumpOnSurfBlob(struct Task *task)
+void SurfFieldEffect_JumpOnSurfBlob(struct Task *task)
 {
     struct ObjectEvent *objectEvent;
     if (!FieldEffectActiveListContains(FLDEFF_FIELD_MOVE_SHOW_MON))
