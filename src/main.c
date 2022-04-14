@@ -17,6 +17,10 @@
 //función a llamar:
 //bool8 FallWarpEffect_End(struct Task *task)
 
+//08084820 l 00000070 EscalatorWarpEffect_2
+//21 48 08 08   puntero hallado en: 0x08
+//función a llamar:
+//bool8 EscalatorWarpOut_WaitForPlayer(struct Task *task)
 
 
 //  --------------------------------------

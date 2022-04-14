@@ -80,7 +80,19 @@ bool8 FallWarpEffect_End(struct Task *task)
 #define tState   data[0]
 #define tGoingUp data[1]
 
-static bool8 EscalatorWarpOut_WaitForPlayer(struct Task *task)
+
+/**
+ * ::ACIMUT::
+ * 2022/04/14
+ * - Esta función en FR se conoce como:
+ *      static bool8 EscalatorWarpEffect_2(struct Task * task)
+ * - Cambio de función correspondiente a fire red.
+ * - No es llamada en otra parte de la inyección.
+ * - Función llamada a través de una tabla:
+ * - Sólo hay que cambiar el puntero.
+ */
+
+bool8 EscalatorWarpOut_WaitForPlayer(struct Task *task)
 {
     struct ObjectEvent *objectEvent;
     objectEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
@@ -90,11 +102,10 @@ static bool8 EscalatorWarpOut_WaitForPlayer(struct Task *task)
         task->tState++;
         task->data[2] = 0;
         task->data[3] = 0;
-        //if ((u8)task->tGoingUp == FALSE)
 
-        EscalatorMoveFollower(task->data[1]);
+        EscalatorMoveFollower(task->tGoingUp);
 
-        if ((u8)task->data[1] == FALSE)
+        if ((u8)task->tGoingUp == FALSE)
         {
             task->tState = 4; // jump to EscalatorWarpOut_Down_Ride
         }
