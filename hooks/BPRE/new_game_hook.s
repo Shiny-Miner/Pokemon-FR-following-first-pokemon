@@ -12,8 +12,7 @@
 //ROM:08054B4C @ End of function sub_8054A60
 
 
-.org 0x08054B3E//0x12 bytes
-
+.org 0x08054B3E
 NewGameInitData_hook:
     LDR     R0, =ResetFollowerSaveBlock1|1
     BL      bx_r0

@@ -239,19 +239,19 @@ void mli4_mapscripts_and_other_hook(void)
  * 
  * ARCHIVO:                     FR:     LD:    HOOK:
  * --------------------------------------------------
- * srccmd.c                     ok
- * overworld.c                  ok              -
- * party_menu.c                 ok              -
- * item_use.c                   ok              -
- * fldeff_teleport.c            ok              -
- * field_screen_effect.c        ok              -
- * field_player_avatar.c        ok              -
- * field_effect.c               ok              ok
- * field_control_avatar.c       ok              -
- * event_object_movement.c      ok              -
- * follow_me.c                  ~               ok
- * battle_main.c                ok              ok
- * new_game.c                   ok              ok
+ * srccmd.c                     ok      ok      ~
+ * overworld.c                  ok      ok      -
+ * party_menu.c                 ok      ok      -
+ * item_use.c                   ok      ok      -
+ * fldeff_teleport.c            ok      ok      -
+ * field_screen_effect.c        ok      ok      -
+ * field_player_avatar.c        ok      ok      -
+ * field_effect.c               ok      ok      ok
+ * field_control_avatar.c       ok      ok      -
+ * event_object_movement.c      ok      ok      -
+ * follow_me.c                  ~       ok      ok
+ * battle_main.c                ok      ok      ok
+ * new_game.c                   ok      ok      ok
 */
 
 

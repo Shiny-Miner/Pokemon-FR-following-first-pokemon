@@ -12,7 +12,7 @@
 //#include "field_special_scene.h"
 #include "field_weather.h"
 #include "gpu_regs.h"
-#include "io_reg.h"
+#include "gba/io_reg.h"
 #include "link.h"
 #include "link_rfu.h"
 #include "load_save.h"

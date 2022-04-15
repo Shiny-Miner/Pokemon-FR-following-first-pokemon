@@ -23,7 +23,7 @@
 #include "fldeff.h"
 #include "gpu_regs.h"
 #include "heal_location.h"
-#include "io_reg.h"
+#include "gba/io_reg.h"
 #include "link.h"
 #include "link_rfu.h"
 #include "load_save.h"

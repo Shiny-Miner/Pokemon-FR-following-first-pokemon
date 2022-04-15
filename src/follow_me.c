@@ -26,7 +26,7 @@
 #include "constants/field_effects.h"
 #include "constants/metatile_behaviors.h"
 #include "event_object_lock.h"
-#include "event_objects.h"
+//#include "event_objects.h"
 #include "field_screen.h"
 #include "field_fadetransition.h"
 

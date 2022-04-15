@@ -1,5 +1,6 @@
 #include "global.h"
-
+#include "event_data.h"
+#include "script.h"
 
 /**
  * ::ACIMUT::
@@ -10,28 +11,6 @@
 
 // follow me script commands
 #include "follow_me.h"
-
-//EWRAM
-extern u16 gSpecialVar_0x8000 = 0;
-extern u16 gSpecialVar_0x8001 = 0;
-extern u16 gSpecialVar_0x8002 = 0;
-extern u16 gSpecialVar_0x8003 = 0;
-extern u16 gSpecialVar_0x8004 = 0;
-extern u16 gSpecialVar_0x8005 = 0;
-extern u16 gSpecialVar_0x8006 = 0;
-extern u16 gSpecialVar_0x8007 = 0;
-extern u16 gSpecialVar_0x8008 = 0;
-extern u16 gSpecialVar_0x8009 = 0;
-extern u16 gSpecialVar_0x800A = 0;
-extern u16 gSpecialVar_0x800B = 0;
-extern u16 gSpecialVar_Result = 0;
-extern u16 gSpecialVar_LastTalked = 0;
-extern u16 gSpecialVar_Facing = 0;
-extern u16 gSpecialVar_MonBoxId = 0;
-extern u16 gSpecialVar_MonBoxPos = 0;
-extern u16 gSpecialVar_TextColor = 0;
-extern u16 gSpecialVar_PrevTextColor = 0;
-
 
 
 //hacer hook a la tabla de specials.

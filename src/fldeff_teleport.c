@@ -8,7 +8,7 @@
 #include "follow_me.h"
 #include "constants/field_effects.h"
 
-static void FieldCallback_Teleport(void);
+extern void FieldCallback_Teleport(void);
 //static void StartTeleportFieldEffect(void);
 
 bool8 SetUpFieldMove_Teleport(void)

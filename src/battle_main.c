@@ -2,7 +2,7 @@
 #include "battle.h"
 #include "link.h"
 #include "event_data.h"
-#include "songs.h"
+#include "constants/songs.h"
 #include "m4a.h"
 #include "roamer.h"
 #include "follow_me.h"

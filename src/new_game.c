@@ -44,6 +44,7 @@
 #include "berry_powder.h"
 //#include "mystery_gift.h"
 #include "union_room_chat.h"
+#include "trainer_tower.h"
 
 /**
  * ::ACIMUT::
