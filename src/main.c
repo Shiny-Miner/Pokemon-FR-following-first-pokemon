@@ -8,6 +8,16 @@
 
 
 
+//  ------------------------------
+//  -----   battle_main.c    -----
+//  ------------------------------
+
+//08015b58 l 000000a8 ReturnFromBattleToOverworld
+//59 5b 01 08   puntero hallado en:
+//0x08015A68
+//0x08015B2C
+
+
 //  ---------------------------------------
 //  -----   evet_object_movement.c    -----
 //  ---------------------------------------
@@ -229,7 +239,7 @@ void mli4_mapscripts_and_other_hook(void)
  * field_control_avatar.c       ok              -
  * event_object_movement.c      ok              -
  * follow_me.c
- * battle_main.c
+ * battle_main.c                ok              ok
  * new_game.c
 */
 

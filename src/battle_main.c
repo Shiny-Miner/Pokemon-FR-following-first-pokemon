@@ -1,10 +1,21 @@
 #include "global.h"
+#include "battle.h"
+#include "link.h"
+#include "event_data.h"
+#include "songs.h"
+#include "m4a.h"
+#include "roamer.h"
+#include "follow_me.h"
 
-/*
-//      Modificar esta función si es necesario.
-//      Revisar en pokefirered.
+/**
+ * ::ACIMUT::
+ * 2022/04/15
+ * - static
+ * - No es llamada en otra parte de la inyección.
+ * - Repuntear.
+ */
 
-static void ReturnFromBattleToOverworld(void)
+void ReturnFromBattleToOverworld(void)
 {
     if (!(gBattleTypeFlags & BATTLE_TYPE_LINK))
     {
@@ -19,22 +30,23 @@ static void ReturnFromBattleToOverworld(void)
     if (gBattleTypeFlags & BATTLE_TYPE_ROAMER)
     {
         UpdateRoamerHPStatus(&gEnemyParty[0]);
-#ifndef BUGFIX
-        if ((gBattleOutcome & B_OUTCOME_WON) || gBattleOutcome == B_OUTCOME_CAUGHT)
-#else
+//#ifndef BUGFIX
+//        if ((gBattleOutcome & B_OUTCOME_WON) || gBattleOutcome == B_OUTCOME_CAUGHT)
+//#else
         if ((gBattleOutcome == B_OUTCOME_WON) || gBattleOutcome == B_OUTCOME_CAUGHT) // Bug: When Roar is used by roamer, gBattleOutcome is B_OUTCOME_PLAYER_TELEPORTED (5).
-#endif                                                                               // & with B_OUTCOME_WON (1) will return TRUE and deactivates the roamer.
+//#endif                                                                               // & with B_OUTCOME_WON (1) will return TRUE and deactivates the roamer.
             SetRoamerInactive();
     }
 
     m4aSongNumStop(SE_LOW_HEALTH);
     SetMainCallback2(gMain.savedCallback);
 
-    // if you experience the follower de-syncing with the player after battle, set POST_BATTLE_FOLLOWER_FIX to TRUE in include/constants/global.h
-    #if POST_BATTLE_FOLLOWER_FIX
-        FollowMe_WarpSetEnd();
-        gObjectEvents[GetFollowerObjectId()].invisible = TRUE;
-    #endif
+// if you experience the follower de-syncing with the player after battle, set POST_BATTLE_FOLLOWER_FIX to TRUE in include/constants/global.h
+#if POST_BATTLE_FOLLOWER_FIX == FALSE
+    FollowMe_WarpSetEnd();
+    gObjectEvents[GetFollowerObjectId()].invisible = TRUE;
+#endif
 }
-*/
+
+
 
