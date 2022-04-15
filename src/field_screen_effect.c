@@ -37,12 +37,12 @@
 #include "fldeff.h"
 #include "field_fadetransition.h"
 #include "quest_log.h"
+#include "field_screen.h"
 
 
 #define tState       data[0]
 
 //static
-extern void SetPlayerVisibility(bool8 visible);
 extern void WarpFadeInScreenWithDelay(void);
 extern void sub_807DE78(bool8 a0);
 

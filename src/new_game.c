@@ -107,5 +107,5 @@ void NewGameInitData(void)
     ResetTrainerHillResults();
     ResetContestLinkResults();
 
-    memset(&gSaveBlock2Ptr->follower, 0, sizeof(gSaveBlock2Ptr->follower));
+    memset(&gSaveBlock1Ptr->follower, 0, sizeof(gSaveBlock1Ptr->follower));
 }

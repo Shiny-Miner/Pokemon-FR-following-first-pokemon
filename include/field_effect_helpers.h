@@ -14,6 +14,7 @@
 // Exported ROM declarations
 
 u8 CreateWarpArrowSprite(void);
+u8 StartUnderwaterSurfBlobBobbing(u8 oldSpriteId);
 void SetSurfBlob_BobState(u8, u8);
 void SetSurfBlob_DontSyncAnim(u8, u8);
 void StartAshFieldEffect(s16, s16, u16, s16);

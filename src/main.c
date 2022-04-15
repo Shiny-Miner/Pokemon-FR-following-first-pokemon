@@ -8,6 +8,17 @@
 
 
 
+//  ----------------------------
+//  -----   follow_me.c    -----
+//  ----------------------------
+
+//0807e80c l 00000174 Task_DoorWarp
+//0d e8 07 08   puntero hallado en: 0x0807E4FC
+//función a llamar:
+//void Task_DoDoorWarp(u8 taskId)
+
+
+
 //  ------------------------------
 //  -----   battle_main.c    -----
 //  ------------------------------
@@ -238,7 +249,7 @@ void mli4_mapscripts_and_other_hook(void)
  * field_effect.c               ok              ok
  * field_control_avatar.c       ok              -
  * event_object_movement.c      ok              -
- * follow_me.c
+ * follow_me.c                  ~               ok
  * battle_main.c                ok              ok
  * new_game.c
 */
