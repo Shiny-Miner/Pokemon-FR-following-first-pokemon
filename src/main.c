@@ -39,16 +39,28 @@ extern bool8 DoesObjectCollideWithObjectAt(struct ObjectEvent *objectEvent, s16 
 extern bool8 ObjectEventSetHeldMovement(struct ObjectEvent *objectEvent, u8 movementActionId);
 
 //0805df60 g 00000024 GetObjectEventIdByLocalIdAndMap
-
+u8 GetObjectEventIdByLocalIdAndMap_hook(u8 localId, u8 mapNum, u8 mapGroupId)
+{
+    return GetObjectEventIdByLocalIdAndMap(localId, mapNum, mapGroupId);
+}
 
 //0805ed10 g 00000060 RemoveObjectEventsOutsideView
-
+void RemoveObjectEventsOutsideView_hook(void)
+{
+    RemoveObjectEventsOutsideView();
+}
 
 //08063904 l 0000007a DoesObjectCollideWithObjectAt
-
+bool8 DoesObjectCollideWithObjectAt_hook(struct ObjectEvent *objectEvent, s16 x, s16 y)
+{
+    return DoesObjectCollideWithObjectAt(objectEvent, x, y);
+}
 
 //08063ca4 g 0000005c ObjectEventSetHeldMovement
-
+bool8 ObjectEventSetHeldMovement_hook(struct ObjectEvent *objectEvent, u8 movementActionId)
+{
+    return ObjectEventSetHeldMovement(objectEvent, movementActionId);
+}
 
 
 //  ---------------------------------------
