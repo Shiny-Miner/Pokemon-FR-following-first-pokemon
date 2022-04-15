@@ -32,7 +32,7 @@
 //  ---------------------------------------
 //  -----   evet_object_movement.c    -----
 //  ---------------------------------------
-
+/*
 extern u8 GetObjectEventIdByLocalIdAndMap(u8 localId, u8 mapNum, u8 mapGroupId);
 extern void RemoveObjectEventsOutsideView(void);
 extern bool8 DoesObjectCollideWithObjectAt(struct ObjectEvent *objectEvent, s16 x, s16 y);
@@ -60,14 +60,14 @@ bool8 DoesObjectCollideWithObjectAt_hook(struct ObjectEvent *objectEvent, s16 x,
 bool8 ObjectEventSetHeldMovement_hook(struct ObjectEvent *objectEvent, u8 movementActionId)
 {
     return ObjectEventSetHeldMovement(objectEvent, movementActionId);
-}
+}*/
 
 
 //  ---------------------------------------
 //  -----   field_control_avatar.c    -----
 //  ---------------------------------------
 
-extern const u8 *GetInteractedObjectEventScript(struct MapPosition *position, u8 metatileBehavior, u8 direction);
+/*extern const u8 *GetInteractedObjectEventScript(struct MapPosition *position, u8 metatileBehavior, u8 direction);
 extern const u8 *GetInteractedWaterScript(struct MapPosition *unused1, u8 metatileBehavior, u8 direction);
 
 //0806cff4 l 000000f0 GetInteractedObjectEventScript
@@ -80,7 +80,7 @@ const u8 *GetInteractedObjectEventScript_hook(struct MapPosition *position, u8 m
 const u8 *GetInteractedWaterScript_hook(struct MapPosition *unused1, u8 metatileBehavior, u8 direction)
 {
     return GetInteractedWaterScript(unused1, metatileBehavior, direction);
-}
+}*/
 
 
 //  -------------------------------
@@ -110,26 +110,26 @@ const u8 *GetInteractedWaterScript_hook(struct MapPosition *unused1, u8 metatile
 //0805b9d4 l 000000d6 PlayerNotOnBikeMoving
 //d5 b9 05 08   puntero hallado en: 0x0835B81C
 
-extern void CreateStopSurfingTask(u8 direction);
+/*extern void CreateStopSurfingTask(u8 direction);
 
 //0805d0f8 l 0000005c CreateStopSurfingTask
 void CreateStopSurfingTask_hook(u8 direction)
 {
     CreateStopSurfingTask(direction);
-}
+}*/
 
 
 //  --------------------------------------
 //  -----   field_screen_effect.c    -----
 //  --------------------------------------
 
-extern void FieldCB_DefaultWarpExit(void);
+/*extern void FieldCB_DefaultWarpExit(void);
 
 ////0807df64 g 00000018 FieldCB_DefaultWarpExit
 void FieldCB_DefaultWarpExit_hook(void)
 {
     FieldCB_DefaultWarpExit();
-}
+}*/
 
 //0807dfbc l 00000250 sub_807DFBC
 //BD DF 07 08   puntero hallado en: 0x0807DED8
@@ -171,13 +171,13 @@ void FieldCB_DefaultWarpExit_hook(void)
 //función a llamar:
 //void ItemUseOutOfBattle_Bike(u8 taskId)
 
-extern bool8 CanUseDigOrEscapeRopeOnCurMap(void);
+/*extern bool8 CanUseDigOrEscapeRopeOnCurMap(void);
 
 //080a1b8c g 0000001e CanUseEscapeRopeOnCurrMap
 bool8 CanUseEscapeRopeOnCurrMap_hook(void)
 {
     return CanUseDigOrEscapeRopeOnCurMap();
-}
+}*/
 
 
 //  -----------------------------
@@ -201,7 +201,7 @@ bool8 CanUseEscapeRopeOnCurrMap_hook(void)
 //  -----   overworld.c    -----
 //  ----------------------------
 
-extern void Overworld_ResetStateAfterWhitingOut(void);
+/*extern void Overworld_ResetStateAfterWhitingOut(void);
 extern void DoCB1_Overworld(u16 newKeys, u16 heldKeys);
 extern bool32 ReturnToFieldLocal(u8 *state);
 extern void InitObjectEventsLocal(void);
@@ -229,7 +229,7 @@ bool32 sub_8056CD8_hook(u8 *state)
 void mli4_mapscripts_and_other_hook(void)
 {
     InitObjectEventsLocal();
-}
+}*/
 
 //  --------------------    hooks end   --------------------
 
@@ -251,16 +251,16 @@ void mli4_mapscripts_and_other_hook(void)
  * 
  * ARCHIVO:                     FR:     LD:    HOOK:
  * --------------------------------------------------
- * srccmd.c                     ok      ok      ~
- * overworld.c                  ok      ok      -
- * party_menu.c                 ok      ok      -
- * item_use.c                   ok      ok      -
- * fldeff_teleport.c            ok      ok      -
- * field_screen_effect.c        ok      ok      -
- * field_player_avatar.c        ok      ok      -
+ * srccmd.c                     ok      ok      ok
+ * overworld.c                  ok      ok      ok
+ * party_menu.c                 ok      ok      ok
+ * item_use.c                   ok      ok      ok
+ * fldeff_teleport.c            ok      ok      ok
+ * field_screen_effect.c        ok      ok      ok
+ * field_player_avatar.c        ok      ok      ok
  * field_effect.c               ok      ok      ok
- * field_control_avatar.c       ok      ok      -
- * event_object_movement.c      ok      ok      -
+ * field_control_avatar.c       ok      ok      ok
+ * event_object_movement.c      ok      ok      ok
  * follow_me.c                  ~       ok      ok
  * battle_main.c                ok      ok      ok
  * new_game.c                   ok      ok      ok

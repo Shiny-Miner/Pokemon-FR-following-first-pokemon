@@ -33,5 +33,18 @@
     .word Task_SpinEnterWarp|1
 
 
+//0807df64 g 00000018 FieldCB_DefaultWarpExit
+.org 0x0807df64
+.area 0x18, 0xFF
+FieldCB_DefaultWarpExit_hook:
+    push    {r4, lr}
+    ldr     r3, =FieldCB_DefaultWarpExit|1
+    bl      bx_r3_FieldCB_DefaultWarpExit
+    pop     {r4, pc}
+
+bx_r3_FieldCB_DefaultWarpExit:
+    bx      r3
+.pool
+.endarea
 
 

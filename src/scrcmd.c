@@ -14,6 +14,7 @@
 
 
 //hacer hook a la tabla de specials.
+//special 0x10
 void Setfollower(void)
 {
     u8 localId = gSpecialVar_0x8000;
@@ -22,6 +23,7 @@ void Setfollower(void)
     SetUpFollowerSprite(localId, flags);
 }
 
+/*
 bool8 ScrCmd_setfollower(struct ScriptContext *ctx)
 {
     u8 localId = ScriptReadByte(ctx);
@@ -32,20 +34,21 @@ bool8 ScrCmd_setfollower(struct ScriptContext *ctx)
 }
 
 
-/*
-
+//special 0x11
 bool8 ScrCmd_destroyfollower(struct ScriptContext *ctx)
 {
     DestroyFollower();
     return FALSE;
 }
 
+//special 0x12
 bool8 ScrCmd_facefollower(struct ScriptContext *ctx)
 {
     PlayerFaceFollowerSprite();
     return FALSE;
 }
 
+//special 0x13
 bool8 ScrCmd_checkfollower(struct ScriptContext *ctx)
 {
     CheckPlayerHasFollower();
