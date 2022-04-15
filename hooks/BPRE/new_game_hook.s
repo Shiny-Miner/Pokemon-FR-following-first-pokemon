@@ -13,11 +13,19 @@
 
 
 .org 0x08054B3E
-NewGameInitData_hook:
-    LDR     R0, =ResetFollowerSaveBlock1|1
-    BL      bx_r0
-    B      0x080048AA//CallWindowFunction end func
-bx_r0:
-    BX      R0
+    bl SetWirelessCommType0_UnusedCopy
+
+//0800b22c g 0000001c SetWirelessCommType0_UnusedCopy
+.org 0x0800b22c
+SetWirelessCommType0_UnusedCopy:
+.area 0x1C, 0xFF
+    push    {r4, lr}
+    ldr     r3, =ResetFollowerSaveBlock1|1
+    bl      bx_r3_ResetFollowerSaveBlock1
+    pop     {r4, pc}
+bx_r3_ResetFollowerSaveBlock1:
+    bx      r3
+
 .pool
+.endarea
 
