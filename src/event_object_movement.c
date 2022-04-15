@@ -31,16 +31,21 @@
 #include "constants/trainer_types.h"
 #include "constants/union_room.h"
 #include "constants/metatile_behaviors.h"
+#include "quest_log.h"
 
-/**
- * ::ACIMUT::
- * 
- * Hacer hook a estas funciones.
-*/
+//static 
+extern u8 GetObjectEventIdByLocalIdAndMapInternal(u8, u8, u8);
+extern u8 GetObjectEventIdByLocalId(u8);
+extern void RemoveObjectEventIfOutsideView(struct ObjectEvent *);
+
+// Sprite data used throughout
+#define sObjEventId   data[0]
+#define sTypeFuncId   data[1] // Index into corresponding gMovementTypeFuncs_* table
+#define sActionFuncId data[2] // Index into corresponding gMovementActionFuncs_* table
+#define sDirection    data[3]
 
 u8 GetObjectEventIdByLocalIdAndMap(u8 localId, u8 mapNum, u8 mapGroupId)
 {
-    //if (localId < OBJ_EVENT_ID_PLAYER)
     if (localId == OBJ_EVENT_ID_FOLLOWER)
         return GetFollowerObjectId();
     else if (localId < OBJ_EVENT_ID_PLAYER)
@@ -49,6 +54,14 @@ u8 GetObjectEventIdByLocalIdAndMap(u8 localId, u8 mapNum, u8 mapGroupId)
     return GetObjectEventIdByLocalId(localId);
 }
 
+/**
+ * ::ACIMUT::
+ * 2022/04/15
+ * - static
+ * - Cambio de función correspondiente a fire red.
+ * - No es llamada en otra parte de la inyección.
+ * - Hacer hook a esta función
+ */
 
 void RemoveObjectEventsOutsideView(void)
 {
@@ -56,7 +69,7 @@ void RemoveObjectEventsOutsideView(void)
     bool8 isActiveLinkPlayer;
     for (i = 0; i < OBJECT_EVENTS_COUNT; i++)
     {
-        for (j = 0, isActiveLinkPlayer = FALSE; j < ARRAY_COUNT(gLinkPlayerObjectEvents); j++)
+        for (j = 0, isActiveLinkPlayer = FALSE; j < NELEMS(gLinkPlayerObjectEvents); j++)
         {
             if (gLinkPlayerObjectEvents[j].active && i == gLinkPlayerObjectEvents[j].objEventId)
                 isActiveLinkPlayer = TRUE;
@@ -65,27 +78,33 @@ void RemoveObjectEventsOutsideView(void)
         {
             struct ObjectEvent *objectEvent = &gObjectEvents[i];
 
-            //if (objectEvent->active && !objectEvent->isPlayer)
             if (objectEvent->active && !objectEvent->isPlayer && i != GetFollowerObjectId())
                 RemoveObjectEventIfOutsideView(objectEvent);
         }
     }
 }
 
-static bool8 DoesObjectCollideWithObjectAt(struct ObjectEvent *objectEvent, s16 x, s16 y)
+/**
+ * ::ACIMUT::
+ * 2022/04/15
+ * - static
+ * - Cambio de función correspondiente a fire red.
+ * - No es llamada en otra parte de la inyección.
+ * - Hacer hook a esta función
+ */
+
+bool8 DoesObjectCollideWithObjectAt(struct ObjectEvent *objectEvent, s16 x, s16 y)
 {
     u8 i;
     struct ObjectEvent *curObject;
     for (i = 0; i < OBJECT_EVENTS_COUNT; i++)
     {
         curObject = &gObjectEvents[i];
-        //if (curObject->active && curObject != objectEvent)
         if (curObject->active && curObject != objectEvent && !FollowMe_IsCollisionExempt(curObject, objectEvent))
         {            
-            // check for collision if curObject is active, not the object in question, and not exempt from collisions
             if ((curObject->currentCoords.x == x && curObject->currentCoords.y == y) || (curObject->previousCoords.x == x && curObject->previousCoords.y == y))
             {
-                if (AreElevationsCompatible(objectEvent->currentElevation, curObject->currentElevation))
+                if (AreZCoordsCompatible(objectEvent->currentElevation, curObject->currentElevation))
                     return TRUE;
             }
         }
@@ -93,30 +112,60 @@ static bool8 DoesObjectCollideWithObjectAt(struct ObjectEvent *objectEvent, s16 
     return FALSE;
 }
 
+/**
+ * ::ACIMUT::
+ * 2022/04/15
+ * - Cambio de función correspondiente a fire red.
+ * - Es llamada en otra parte de la inyección.
+ * - Hacer hook a esta función
+ * - No declarar en archivo LD
+ */
+
 bool8 ObjectEventSetHeldMovement(struct ObjectEvent *objectEvent, u8 movementActionId)
 {
-    if (ObjectEventIsMovementOverridden(objectEvent))
+    if(sub_8112CAC() == TRUE)
+        ObjectEventClearHeldMovementIfActive(objectEvent);
+    else if (ObjectEventIsMovementOverridden(objectEvent))
         return TRUE;
+
     UnfreezeObjectEvent(objectEvent);
     objectEvent->movementActionId = movementActionId;
     objectEvent->heldMovementActive = TRUE;
     objectEvent->heldMovementFinished = FALSE;
-    gSprites[objectEvent->spriteId].sActionFuncId = 0;//revisar estructura
+    gSprites[objectEvent->spriteId].sActionFuncId = 0;
     FollowMe(objectEvent, movementActionId, FALSE);
     return FALSE;
 }
 
+/**
+ * ::ACIMUT::
+ * 2022/04/15
+ * - Las siguientes funciones no existen en FR
+ * - Es llamada en otra parte de la inyección,
+ *      en follow_me.c
+ * - No es necesario hacer hook.
+ */
+
+typedef void (*SpriteStepFunc)(struct Sprite *sprite, u8 direction);
+
+//static 
+extern void MoveCoordsInDirection(u32, s16 *, s16 *, s16, s16);
+extern const SpriteStepFunc *const sSpriteStepFuncsBySpeed[];
+extern const s16 sSpriteStepCountsBySpeed[];
+
 // NEW
 u16 GetMiniStepCount(u8 speed)
 {
-    return (u16)sStepTimes[speed];
+    return (u16)sSpriteStepCountsBySpeed[speed];
 }
 
+// NEW
 void RunMiniStep(struct Sprite *sprite, u8 speed, u8 currentFrame)
 {
-    sNpcStepFuncTables[speed][currentFrame](sprite, sprite->data[3]);
+    sSpriteStepFuncsBySpeed[speed][currentFrame](sprite, sprite->data[3]);
 }
 
+// NEW
 bool8 PlayerIsUnderWaterfall(struct ObjectEvent *objectEvent)
 {
     s16 x;

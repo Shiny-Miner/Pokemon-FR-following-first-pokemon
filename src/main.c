@@ -9,6 +9,28 @@
 
 
 //  ---------------------------------------
+//  -----   evet_object_movement.c    -----
+//  ---------------------------------------
+
+extern u8 GetObjectEventIdByLocalIdAndMap(u8 localId, u8 mapNum, u8 mapGroupId);
+extern void RemoveObjectEventsOutsideView(void);
+extern bool8 DoesObjectCollideWithObjectAt(struct ObjectEvent *objectEvent, s16 x, s16 y);
+extern bool8 ObjectEventSetHeldMovement(struct ObjectEvent *objectEvent, u8 movementActionId);
+
+//0805df60 g 00000024 GetObjectEventIdByLocalIdAndMap
+
+
+//0805ed10 g 00000060 RemoveObjectEventsOutsideView
+
+
+//08063904 l 0000007a DoesObjectCollideWithObjectAt
+
+
+//08063ca4 g 0000005c ObjectEventSetHeldMovement
+
+
+
+//  ---------------------------------------
 //  -----   field_control_avatar.c    -----
 //  ---------------------------------------
 
@@ -119,7 +141,7 @@ void FieldCB_DefaultWarpExit_hook(void)
 extern bool8 CanUseDigOrEscapeRopeOnCurMap(void);
 
 //080a1b8c g 0000001e CanUseEscapeRopeOnCurrMap
-bool8 CanUseDigOrEscapeRopeOnCurMap_hook(void)
+bool8 CanUseEscapeRopeOnCurrMap_hook(void)
 {
     return CanUseDigOrEscapeRopeOnCurMap();
 }
@@ -165,13 +187,13 @@ void DoCB1_Overworld_hook(u16 newKeys, u16 heldKeys)
 }
 
 //08056cd8 l 0000006c sub_8056CD8
-bool32 ReturnToFieldLocal_hook(u8 *state)
+bool32 sub_8056CD8_hook(u8 *state)
 {
     return ReturnToFieldLocal(state);
 }
 
 //0805709c l 00000064 mli4_mapscripts_and_other
-void InitObjectEventsLocal_hook(void)
+void mli4_mapscripts_and_other_hook(void)
 {
     InitObjectEventsLocal();
 }
@@ -205,7 +227,7 @@ void InitObjectEventsLocal_hook(void)
  * field_player_avatar.c        ok              -
  * field_effect.c               ok              ok
  * field_control_avatar.c       ok              -
- * event_object_movement.c
+ * event_object_movement.c      ok              -
  * follow_me.c
  * battle_main.c
  * new_game.c
