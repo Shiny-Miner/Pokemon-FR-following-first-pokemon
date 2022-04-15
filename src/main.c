@@ -251,7 +251,7 @@ void mli4_mapscripts_and_other_hook(void)
  * event_object_movement.c      ok              -
  * follow_me.c                  ~               ok
  * battle_main.c                ok              ok
- * new_game.c
+ * new_game.c                   ok              ok
 */
 
 

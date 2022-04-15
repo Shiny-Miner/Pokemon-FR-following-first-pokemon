@@ -46,66 +46,65 @@
 #include "union_room_chat.h"
 
 /**
- * Esta función está en el battle hack.
-*/
+ * ::ACIMUT::
+ * 2022/04/15
+ * - Supongo que hay que simplificar aquí.
+ * - Hacer un hook a la old school.
+ */
 
-void NewGameInitData(void)
+/*void NewGameInitData(void)
 {
-    if (gSaveFileStatus == SAVE_STATUS_EMPTY || gSaveFileStatus == SAVE_STATUS_CORRUPT)
-        RtcReset();
+    u8 rivalName[PLAYER_NAME_LENGTH + 1];
+
+    StringCopy(rivalName, gSaveBlock1Ptr->rivalName);
     gDifferentSaveFile = TRUE;
     gSaveBlock2Ptr->encryptionKey = 0;
     ZeroPlayerPartyMons();
     ZeroEnemyPartyMons();
-    ResetPokedex();
-    ClearFrontierRecord();
+    ClearBattleTower();
     ClearSav1();
-    ClearAllMail();
+    ClearMailData();
     gSaveBlock2Ptr->specialSaveWarpFlags = 0;
     gSaveBlock2Ptr->gcnLinkFlags = 0;
+    gSaveBlock2Ptr->unkFlag1 = TRUE;
+    gSaveBlock2Ptr->unkFlag2 = FALSE;
     InitPlayerTrainerId();
     PlayTimeCounter_Reset();
     ClearPokedexFlags();
     InitEventData();
-    ClearTVShowData();
-    ResetGabbyAndTy();
-    ClearSecretBases();
-    ClearBerryTrees();
+    ResetFameChecker();
     SetMoney(&gSaveBlock1Ptr->money, 3000);
-    SetCoins(0);
-    ResetLinkContestBoolean();
     ResetGameStats();
-    ClearAllContestWinnerPics();
     ClearPlayerLinkBattleRecords();
-    InitSeedotSizeRecord();
-    InitLotadSizeRecord();
+    InitHeracrossSizeRecord();
+    InitMagikarpSizeRecord();
+    sub_806E190();
     gPlayerPartyCount = 0;
     ZeroPlayerPartyMons();
     ResetPokemonStorageSystem();
     ClearRoamerData();
-    ClearRoamerLocationData();
     gSaveBlock1Ptr->registeredItem = 0;
     ClearBag();
     NewGameInitPCItems();
-    ClearPokeblocks();
-    ClearDecorationInventories();
+    ClearEnigmaBerries();
     InitEasyChatPhrases();
-    SetMauvilleOldMan();
-    InitDewfordTrend();
-    ResetFanClub();
-    ResetLotteryCorner();
-    WarpToTruck();
+    ResetTrainerFanClub();
+    UnionRoomChat_InitializeRegisteredTexts();
+    ResetMiniGamesResults();
+    InitMEventData();
+    SetAllRenewableItemFlags();
+    WarpToPlayersRoom();
     ScriptContext2_RunNewScript(EventScript_ResetAllMapFlags);
-    ResetMiniGamesRecords();
-    InitUnionRoomChatRegisteredTexts();
-    InitLilycoveLady();
-    ResetAllApprenticeData();
-    ClearRankingHallRecords();
-    InitMatchCallCounters();
-    ClearMysteryGift();
-    WipeTrainerNameRecords();
-    ResetTrainerHillResults();
-    ResetContestLinkResults();
+    StringCopy(gSaveBlock1Ptr->rivalName, rivalName);
+    ResetTrainerTowerResults();
 
     memset(&gSaveBlock1Ptr->follower, 0, sizeof(gSaveBlock1Ptr->follower));
+}*/
+
+void ResetFollowerSaveBlock1(void)
+{
+    ResetTrainerTowerResults();
+    memset(&gSaveBlock1Ptr->follower, 0, sizeof(gSaveBlock1Ptr->follower));
 }
+
+
