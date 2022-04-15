@@ -13,13 +13,19 @@
 //  ---------------------------------------
 
 extern const u8 *GetInteractedObjectEventScript(struct MapPosition *position, u8 metatileBehavior, u8 direction);
+extern const u8 *GetInteractedWaterScript(struct MapPosition *unused1, u8 metatileBehavior, u8 direction);
 
 //0806cff4 l 000000f0 GetInteractedObjectEventScript
-const u8 *GetInteractedObjectEventScript(struct MapPosition *position, u8 metatileBehavior, u8 direction)
+const u8 *GetInteractedObjectEventScript_hook(struct MapPosition *position, u8 metatileBehavior, u8 direction)
 {
     return GetInteractedObjectEventScript(position, metatileBehavior, direction);
 }
 
+//0806d548 l 000000a0 GetInteractedWaterScript
+const u8 *GetInteractedWaterScript_hook(struct MapPosition *unused1, u8 metatileBehavior, u8 direction)
+{
+    return GetInteractedWaterScript(unused1, metatileBehavior, direction);
+}
 
 
 //  -------------------------------
@@ -198,7 +204,7 @@ void InitObjectEventsLocal_hook(void)
  * field_screen_effect.c        ok              -
  * field_player_avatar.c        ok              -
  * field_effect.c               ok              ok
- * field_control_avatar.c
+ * field_control_avatar.c       ok              -
  * event_object_movement.c
  * follow_me.c
  * battle_main.c

@@ -42,8 +42,7 @@
  * 2022/04/14
  * - Cambio de función correspondiente a fire red.
  * - No es llamada en otra parte de la inyección.
- * - Función llamada a través de una tabla:
- * - Sólo hay que cambiar el puntero.
+ * - Hacer hook a esta función
  */
 
 const u8 *GetInteractedObjectEventScript(struct MapPosition *position, u8 metatileBehavior, u8 direction)
@@ -82,24 +81,47 @@ const u8 *GetInteractedObjectEventScript(struct MapPosition *position, u8 metati
     return script;
 }
 
-static const u8 *GetInteractedWaterScript(struct MapPosition *unused1, u8 metatileBehavior, u8 direction)
+/**
+ * ::ACIMUT::
+ * 2022/04/14
+ * - Cambio de función correspondiente a fire red.
+ * - No es llamada en otra parte de la inyección.
+ * - Hacer hook a esta función
+ */
+
+const u8 *GetInteractedWaterScript(struct MapPosition *unused1, u8 metatileBehavior, u8 direction)
 {
-    //if (FlagGet(FLAG_BADGE05_GET) == TRUE && PartyHasMonWithSurf() == TRUE && IsPlayerFacingSurfableFishableWater() == TRUE)
+    if (MetatileBehavior_IsSemiDeepWater(metatileBehavior) == TRUE &&PartyHasMonWithSurf() == TRUE)
+        return EventScript_CurrentTooFast;
     if (FlagGet(FLAG_BADGE05_GET) == TRUE && PartyHasMonWithSurf() == TRUE && IsPlayerFacingSurfableFishableWater() == TRUE && CheckFollowerFlag(FOLLOWER_FLAG_CAN_SURF))
         return EventScript_UseSurf;
 
-    //if (MetatileBehavior_IsWaterfall(metatileBehavior) == TRUE)
     if (MetatileBehavior_IsWaterfall(metatileBehavior) == TRUE && CheckFollowerFlag(FOLLOWER_FLAG_CAN_WATERFALL))
     {
-        if (FlagGet(FLAG_BADGE08_GET) == TRUE && IsPlayerSurfingNorth() == TRUE)
-            return EventScript_UseWaterfall;
+        if (FlagGet(FLAG_BADGE07_GET) == TRUE && IsPlayerSurfingNorth() == TRUE)
+            return EventScript_Waterfall;
         else
-            return EventScript_CannotUseWaterfall;
+            return EventScript_CantUseWaterfall;
     }
     return NULL;
 }
 
-static bool32 TrySetupDiveDownScript(void)
+/**
+ * ::ACIMUT::
+ * 2022/04/15
+ * - Función no existe en FR
+ * - No es llamada en otra parte de la inyección.
+ * - No es necesario portearlo.
+ */
+
+/*
+//static 
+extern u8 TrySetDiveWarp(void);
+
+extern const u8 EventScript_UseDive[];
+extern const u8 EventScript_UseDiveUnderwater[];
+
+bool32 TrySetupDiveDownScript(void)
 {
     if (!CheckFollowerFlag(FOLLOWER_FLAG_CAN_DIVE))
         return FALSE;
@@ -111,8 +133,18 @@ static bool32 TrySetupDiveDownScript(void)
     }
     return FALSE;
 }
+*/
 
-static bool32 TrySetupDiveEmergeScript(void)
+/**
+ * ::ACIMUT::
+ * 2022/04/15
+ * - Función no existe en FR
+ * - No es llamada en otra parte de la inyección.
+ * - No es necesario portearlo.
+ */
+
+/*
+bool32 TrySetupDiveEmergeScript(void)
 {
     if (!CheckFollowerFlag(FOLLOWER_FLAG_CAN_DIVE))
         return FALSE;
@@ -124,5 +156,5 @@ static bool32 TrySetupDiveEmergeScript(void)
     }
     return FALSE;
 }
-
+*/
 
