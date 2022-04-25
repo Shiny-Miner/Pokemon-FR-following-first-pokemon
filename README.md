@@ -18,8 +18,8 @@ Adaptación hasta el commit:
         `INSERT_INTO ?= 0x08fa0000`
 - En el archivo config.mk, buscar la siguiente línea
         `ROM_CODE ?= BPRE`
-        - mantener  BPRE para compilar usando Fire Red
-        - cambiar a BPRS para compilar usando Rojo Fuego en español
+    - mantener  BPRE para compilar usando Fire Red
+    - cambiar a BPRS para compilar usando Rojo Fuego en español
 
 - Compilan ejecutando make con su terminal, y una rom con la inyección aparecerá en una carpeta llamada build.
 
