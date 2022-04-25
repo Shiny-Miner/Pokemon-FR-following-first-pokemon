@@ -23,5 +23,5 @@ Adaptación hasta el commit:
 
 - Compilan ejecutando make con su terminal, y una rom con la inyección aparecerá en una carpeta llamada build.
 
-- Archivos dentro de la carpeta `include` fueron tomados de pokefirered.
+- Archivos dentro de la carpeta `include` fueron tomados de [**pokefirered**](https://github.com/pret/pokefirered).
 
